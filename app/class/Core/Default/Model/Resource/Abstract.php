@@ -8,7 +8,7 @@
  * can include databse quries here. A resource file should manage both collection and
  * an entity simultaneously.
  * 
- *  File    : Abstract.php
+ * File     : Abstract.php
  * contains : class
  * Location : app/class/Core/Default/Model/Resource/Abstract.php
  */

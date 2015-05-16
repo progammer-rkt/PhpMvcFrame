@@ -1,7 +1,7 @@
 <?php
 /**
  *....................................................................................
- *                                 basic.php                                *
+ *                                 basic.php                                          *
  * ...................................................................................*
  * 
  * This is a configuration file. Configuration files are special files which are used

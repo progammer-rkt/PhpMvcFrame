@@ -38,7 +38,7 @@ final class Core_Default_View_Abstract extends BasicObject
 	}
 
 	/**
-	 * 	Use set a template for the view.
+	 * Use set a template for the view.
 	 * 
 	 * @param string                      $template
 	 * @return Core_Default_View_Abstract
@@ -50,7 +50,7 @@ final class Core_Default_View_Abstract extends BasicObject
 	}
 
 	/**
-	 * 	Use to get the template
+	 * Use to get the template
 	 * 
 	 * @return string
 	 */
@@ -59,6 +59,11 @@ final class Core_Default_View_Abstract extends BasicObject
 		return $this->_template;
 	}
 
+	/**
+	 * Use to output block
+	 * 
+	 * @return Core_Default_View_Abstract
+	 */
 	public function toHtml()
 	{
 		require_once 'app/template/' . $this->getTemplate();

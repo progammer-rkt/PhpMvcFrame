@@ -1,10 +1,11 @@
 <?php
 /**
- * App.php
+ *....................................................................................
+ *                                 App.php                                           *
+ * ..................................................................................*
  *
- * This is file is used to make life easier. In another way, this file
- * holds more complex and basic codes, but that makes logic seperation
- * more simple and efficient.
+ * This is file is used to make life easier. In another way, this file holds more 
+ * complex and basic codes, but that makes logic seperation more simple and efficient.
  *
  * File     : App.php
  * contains : class
@@ -14,12 +15,12 @@
 /**
  * App Class
  *
- * This is our application class. Most of the method holds by this class
- * are static methods. This means the purpose of the methods in this class
- * to deliver some fixed jobs. 
+ * This is our application class. Most of the method holds by this class are static 
+ * methods. This means the purpose of the methods in this class to deliver some fixed 
+ * jobs. 
  *
- * This class holds lot of reusable methods in it. Using those methods, we 
- * can effectively get any object from anywhere.
+ * This class holds lot of reusable methods in it. Using those methods, we can 
+ * effectively get any object from anywhere.
  */
 class App
 {
@@ -27,12 +28,12 @@ class App
 	/**
 	 * Application runner
 	 *
-	 * This function will figure out the right controller and action
-	 * that is requested by the application and then execute it.
+	 * This function will figure out the right controller and action that is requested
+	 * by the application and then execute it.
 	 * 
 	 * namespace_module/some_controller => Namespace_Module_Controller_Some_Controller
-	 * namespace_module => Namespace_Module_Controller_Index
-	 * ''  => Core_Default_Controller_Index
+	 * namespace_module                 => Namespace_Module_Controller_Index
+	 * ''                               => Core_Default_Controller_Index
 	 * 
 	 * @param  string $controllerRef
 	 * @param  mixed  $inputs
@@ -56,12 +57,12 @@ class App
 	/**
 	 * Use to get a controller object.
 	 *
-	 * Controller object are resoponsible for processing the request. They are 
-	 * normally resides in app/class/Namespace/Module/Controller directory. This 
-	 * function is used to get any controller class in the application.
+	 * Controller object are resoponsible for processing the request. They are normally 
+	 * resides in app/class/Namespace/Module/Controller directory. This function is used 
+	 * to get any controller class in the application.
 	 *
-	 * Eg: App::getController('namespace_module/some_Request') will deliver you 
-	 * isntance of the class `Namespace_Module_Controller_Some_Request` in 
+	 * Eg: App::getController('namespace_module/some_Request') will deliver you isntance 
+	 * of the class `Namespace_Module_Controller_Some_Request` in 
 	 * `app/class/Namespace/Module/Controller/Some/Request.php`
 	 * 
 	 * @param  string $view 

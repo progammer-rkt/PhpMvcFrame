@@ -27,7 +27,7 @@ class Core_Default_Controller_Index
 {
 
 	/**
-	 * 	Constructor
+	 * Constructor
 	 * 
 	 * @return void
 	 */
@@ -35,6 +35,7 @@ class Core_Default_Controller_Index
 	{
 		parent::__construct();
 	}
+
 	/**
 	 * Index Action
 	 *
@@ -56,6 +57,8 @@ class Core_Default_Controller_Index
 	 * 	NotFound Action
 	 * 
 	 * This function is used to handle the 404 error in the application.
+	 * 
+	 * @return void
 	 */
 	public function NotFound()
 	{

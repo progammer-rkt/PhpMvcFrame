@@ -23,7 +23,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 {
 
 	/**
-	 * 	Use to hold blocks which are associated with a particular request
+	 * Use to hold blocks which are associated with a particular request
 	 */
 	protected $_blocks = array();
 
@@ -50,7 +50,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 	}
 
 	/**
-	 * 	Use to add a new block 
+	 * Use to add a new block 
 	 * 
 	 * The type of the block is the reference for a valid block
 	 * Every block should have a unique name. This way we can later refer
@@ -82,7 +82,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 	}
 
 	/**
-	 * 	Use to get a block
+	 * Use to get a block
 	 * 
 	 * @param  string $name
 	 * @return mixed
@@ -97,9 +97,9 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 	}
 
 	/**
-	 * 	Use to remove a block
+	 * Use to remove a block
 	 * 
-	 * @param  string 						    $name
+	 * @param  string                           $name
 	 * @return Core_Default_Controller_Abstract
 	 */
 	public function removeBlock($name)
