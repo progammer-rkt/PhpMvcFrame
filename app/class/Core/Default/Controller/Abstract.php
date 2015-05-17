@@ -1,11 +1,11 @@
 <?php
 /**
- *....................................................................................
+ * ..................................................................................
  *                                 Abstract.php                                      *
  * ..................................................................................*
  *
- * This is a controller file. A controller is responsible for making a valid relation 
- * with model and view. This logic section combines model logic section with view 
+ * This is a controller file. A controller is responsible for making a valid relation
+ * with model and view. This logic section combines model logic section with view
  * logic section and thus the whole framework work together and forms the output.
  *
  * File     : Abstract.php
@@ -15,12 +15,21 @@
 
 /**
  * Core_Default_Controller_Abstract Class
- * 
+ *
  * This is the parent of all controller classes. So all common utilities of
  * controllers wil reside here.
  */
-final class Core_Default_Controller_Abstract extends BaiscObject
+class Core_Default_Controller_Abstract extends BasicObject
 {
+	/**
+	 * Constructor
+	 *
+	 * @return  void
+	 */
+	public function __construct()
+	{
+
+	}
 
 	/**
 	 * Use to hold blocks which are associated with a particular request
@@ -28,7 +37,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 	protected $_blocks = array();
 
 	/**
-	 * This action will render the entire view section that are added in the 
+	 * This action will render the entire view section that are added in the
 	 * controller.
 	 *
 	 * @return  void
@@ -38,24 +47,24 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 		$blocks = $this->getAllBlock();
 		foreach ($blocks as $name => $block) {
 			$templatePath = $block->getTemplate();
-			$templateFile = 'app/template/' . $templatePath;
+			$templateFile = 'app/design/template/' . $templatePath;
 			if (file_exists($templateFile)) {
 				$block->toHtml();
 			} else {
-				throw new Exception('Template File ' . 
+				throw new Exception('Template File ' .
 					$templateFile . ' does not exist');
-				
+
 			}
 		}
 	}
 
 	/**
-	 * Use to add a new block 
-	 * 
+	 * Use to add a new block
+	 *
 	 * The type of the block is the reference for a valid block
 	 * Every block should have a unique name. This way we can later refer
 	 * a block and reutilize it.
-	 * 
+	 *
 	 * @param  string $type
 	 * @param  string $name
 	 * @return mixed
@@ -74,7 +83,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 
 		$block = App::getView($type);
 		if ($block instanceof Core_Default_View_Abstract) {
-			$this->_blocks[$name] = $block; 
+			$this->_blocks[$name] = $block;
 			return $block;
 		} else {
 			throw new Exception('The block with name' . $name . 'is not valid');
@@ -83,7 +92,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 
 	/**
 	 * Use to get a block
-	 * 
+	 *
 	 * @param  string $name
 	 * @return mixed
 	 */
@@ -98,7 +107,7 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 
 	/**
 	 * Use to remove a block
-	 * 
+	 *
 	 * @param  string                           $name
 	 * @return Core_Default_Controller_Abstract
 	 */
@@ -106,5 +115,15 @@ final class Core_Default_Controller_Abstract extends BaiscObject
 	{
 		unset($this->_blocks[$name]);
 		return $this;
+	}
+
+	/**
+	 * Use to get all blocks
+	 *
+	 * @return array
+	 */
+	public function getAllBlock()
+	{
+		return $this->_blocks;
 	}
 }

@@ -4,7 +4,7 @@
  *                                 Index.php                                         *
  * ..................................................................................*
  *
- * This is the entry point to the demo framework. The framework is constructed in such 
+ * This is the entry point to the demo framework. The framework is constructed in such
  * a way that, we can enter into the domo section only through this file.
  *
  * File     : index.php

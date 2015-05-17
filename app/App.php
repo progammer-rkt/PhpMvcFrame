@@ -4,7 +4,7 @@
  *                                 App.php                                           *
  * ..................................................................................*
  *
- * This is file is used to make life easier. In another way, this file holds more 
+ * This is file is used to make life easier. In another way, this file holds more
  * complex and basic codes, but that makes logic seperation more simple and efficient.
  *
  * File     : App.php
@@ -15,11 +15,11 @@
 /**
  * App Class
  *
- * This is our application class. Most of the method holds by this class are static 
- * methods. This means the purpose of the methods in this class to deliver some fixed 
- * jobs. 
+ * This is our application class. Most of the method holds by this class are static
+ * methods. This means the purpose of the methods in this class to deliver some fixed
+ * jobs.
  *
- * This class holds lot of reusable methods in it. Using those methods, we can 
+ * This class holds lot of reusable methods in it. Using those methods, we can
  * effectively get any object from anywhere.
  */
 class App
@@ -30,11 +30,11 @@ class App
 	 *
 	 * This function will figure out the right controller and action that is requested
 	 * by the application and then execute it.
-	 * 
+	 *
 	 * namespace_module/some_controller => Namespace_Module_Controller_Some_Controller
 	 * namespace_module                 => Namespace_Module_Controller_Index
 	 * ''                               => Core_Default_Controller_Index
-	 * 
+	 *
 	 * @param  string $controllerRef
 	 * @param  mixed  $inputs
 	 * @return void
@@ -57,15 +57,15 @@ class App
 	/**
 	 * Use to get a controller object.
 	 *
-	 * Controller object are resoponsible for processing the request. They are normally 
-	 * resides in app/class/Namespace/Module/Controller directory. This function is used 
+	 * Controller object are resoponsible for processing the request. They are normally
+	 * resides in app/class/Namespace/Module/Controller directory. This function is used
 	 * to get any controller class in the application.
 	 *
-	 * Eg: App::getController('namespace_module/some_Request') will deliver you isntance 
-	 * of the class `Namespace_Module_Controller_Some_Request` in 
+	 * Eg: App::getController('namespace_module/some_Request') will deliver you isntance
+	 * of the class `Namespace_Module_Controller_Some_Request` in
 	 * `app/class/Namespace/Module/Controller/Some/Request.php`
-	 * 
-	 * @param  string $view 
+	 *
+	 * @param  string $view
 	 * @return mixed
 	 */
 	public static function getController($controller = '')
@@ -74,24 +74,24 @@ class App
 			$controllerClassName = self::generateClassName($controller, 'controller');
 			$instance = new $controllerClassName();
 		} catch (Exception $e) {
-			$self::_generateException($e);
+			self::_generateException($e);
 		}
-		
+
 		return $instance;
 	}
 
 	/**
 	 * Use to get a view object.
 	 *
-	 * View objects are used to show real outputs in front side. They are 
-	 * normally resides in app/class/Namespace/Module/View directory. This 
+	 * View objects are used to show real outputs in front side. They are
+	 * normally resides in app/class/Namespace/Module/View directory. This
 	 * function is used to get any view class in the application.
 	 *
-	 * Eg: App::getView('namespace_module/some_view') will deliver you 
-	 * isntance of the class `Namespace_Module_View_Some_View` in 
+	 * Eg: App::getView('namespace_module/some_view') will deliver you
+	 * isntance of the class `Namespace_Module_View_Some_View` in
 	 * `app/class/Namespace/Module/View/Some/View.php`
-	 * 
-	 * @param  string $view 
+	 *
+	 * @param  string $view
 	 * @return mixed
 	 */
 	public static function getView($view = '')
@@ -100,9 +100,9 @@ class App
 			$viewClassName = self::generateClassName($view, 'view');
 			$instance = new $viewClassName();
 		} catch (Exception $e) {
-			$self::_generateException($e);
+			self::_generateException($e);
 		}
-		
+
 		return $instance;
 	}
 
@@ -110,14 +110,14 @@ class App
 	 * Use to get a model object.
 	 *
 	 * Model objects are the entities of the application. They are normally
-	 * resides in app/class/Namespace/Module/Model directory. This function 
+	 * resides in app/class/Namespace/Module/Model directory. This function
 	 * is used to get any model class in the application.
 	 *
-	 * Eg: App::getModel('namespace_module/some_entity') will deliver you 
-	 * isntance of the class `Namespace_Module_Model_Some_Entity` in 
+	 * Eg: App::getModel('namespace_module/some_entity') will deliver you
+	 * isntance of the class `Namespace_Module_Model_Some_Entity` in
 	 * `app/class/Namespace/Module/Model/Some/Entity.php`
-	 * 
-	 * @param  string $model 
+	 *
+	 * @param  string $model
 	 * @return mixed
 	 */
 	public static function getModel($model = '')
@@ -126,23 +126,23 @@ class App
 			$modelClassName = self::generateClassName($model, 'model');
 			$instance = new $modelClassName();
 		} catch (Exception $e) {
-			$self::_generateException($e);
+			self::_generateException($e);
 		}
-		
+
 		return $instance;
 	}
 
 	/**
 	 * Use to get a helper object.
 	 *
-	 * Helper object holds some useful generic classes and methods. They are 
-	 * normally resides in app/class/Namespace/Module/Helper directory. This 
+	 * Helper object holds some useful generic classes and methods. They are
+	 * normally resides in app/class/Namespace/Module/Helper directory. This
 	 * function is used to get any helper class in the application.
 	 *
-	 * Eg: App::getHelper('namespace_module/some_helper') will deliver you 
-	 * isntance of the class `Namespace_Module_Helper_Some_Helper` in 
+	 * Eg: App::getHelper('namespace_module/some_helper') will deliver you
+	 * isntance of the class `Namespace_Module_Helper_Some_Helper` in
 	 * `app/class/Namespace/Module/Helper/Some/Helper.php`
-	 * 
+	 *
 	 * @param  string $helper
 	 * @return mixed
 	 */
@@ -152,24 +152,24 @@ class App
 			$helperClassName = self::generateClassName($helper, 'helper');
 			$instance = new $helperClassName();
 		} catch (Exception $e) {
-			$self::_generateException($e);
+			self::_generateException($e);
 		}
-		
+
 		return $instance;
 	}
 
 	/**
 	 * Use to get a resource object.
 	 *
-	 * resource objects are that actually communicate with db. They are 
-	 * normally resides in app/class/Namespace/Module/Model/Resource 
-	 * directory. This function is used to get any resource class which resides 
+	 * resource objects are that actually communicate with db. They are
+	 * normally resides in app/class/Namespace/Module/Model/Resource
+	 * directory. This function is used to get any resource class which resides
 	 * in Model directory.
 	 *
-	 * Eg: App::getResource('namespace_module/some_resource') will deliver you 
-	 * isntance of the class `Namespace_Module_Model_Resource_Some_Resource` in 
+	 * Eg: App::getResource('namespace_module/some_resource') will deliver you
+	 * isntance of the class `Namespace_Module_Model_Resource_Some_Resource` in
 	 * `app/class/Namespace/Module/Model/Resource/Some/Resource.php`
-	 * 
+	 *
 	 * @param  string $helper
 	 * @return mixed
 	 */
@@ -179,19 +179,19 @@ class App
 			$resourceClassName = self::generateClassName($resource, 'model_resource');
 			$instance = new $resourceClassName();
 		} catch (Exception $e) {
-			$self::_generateException($e);
+			self::_generateException($e);
 		}
-		
+
 		return $instance;
 	}
 
 	/**
 	 * Use to modify the name in the class name way
-	 * 
+	 *
 	 * ie some_thing_in_this format => Some_Thing_In_This_Format
-	 * 
-	 * @param $classname
-	 * @return string
+	 *
+	 * @param  string $classname
+	 * @return string $modifiedName
 	 */
 	protected static function _generateProperName($classname)
 	{
@@ -206,7 +206,7 @@ class App
 
 	/**
 	 * Use to generate a valid class name from the given string.
-	 *     
+	 *
 	 * @param  string $classname
 	 * @param  string $section
 	 * @return string $CLASS
@@ -222,7 +222,7 @@ class App
 			} elseif (count($moduleRef) == 1) {
 				$namespaceModule = 'core_' . $namespacePlusClass[0];
 			}
-			$module = self::_generateProperName($namespaceModule); 
+			$module = self::_generateProperName($namespaceModule);
 			$class = self::_generateProperName($namespacePlusClass[1]);
 
 		//no module in request, so use the default module.
@@ -243,11 +243,11 @@ class App
 
 	/**
 	 * Use to generate an action name
-	 * 
+	 *
 	 * eg : post_login =>  LoginPost
-	 * 
-	 * @param  $action 
-	 * @return $modifiedName
+	 *
+	 * @param  string $action
+	 * @return string $modifiedName
 	 */
 	protected static function generateActionName($action = '')
 	{
@@ -268,7 +268,7 @@ class App
 
 	/**
 	 * Use to generate exception
-	 * 
+	 *
 	 */
 	protected static function _generateException(Exception $e)
 	{

@@ -1,0 +1,8 @@
+/vendor
+/.phpintel
+composer.phar
+composer.lock
+my_framework.sublime-project
+my_framework.sublime-workspace
+.htaccess
+
