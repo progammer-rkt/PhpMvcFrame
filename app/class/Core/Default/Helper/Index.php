@@ -23,5 +23,39 @@
 class Core_Default_Helper_Index
 {
 
-}
+	/**
+	 * Use to geneate random characters based on the length provided.
+	 * 
+	 * @param  int    $count
+	 * @return string $s
+	 */
+	public function getRandomChars($length)
+	{
+		$s = substr(
+			str_shuffle(
+				str_repeat(
+					"0123456789abcdefghijklmnopqrstuvwxyz", 5
+			)), 0, $length);
+		return $s;
+	}
 
+	/**
+	 * Use to generate an action name
+	 *
+	 * eg : customer_name =>  CustomerName
+	 *
+	 * @param  string $property
+	 * @return string $modifiedName
+	 */
+	public function generateGetSetName($property)
+	{
+		$modifiedName = implode('', array_map(
+			function($element) {
+				return ucfirst($element);
+			},
+			explode('_', $property)
+		));
+		return $modifiedName;
+	}
+
+}
