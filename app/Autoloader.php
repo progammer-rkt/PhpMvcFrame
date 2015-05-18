@@ -28,9 +28,13 @@ class Autoloader
 
 	public static function AutoloadMe($class)
 	{
-		$classFile = self::generateClassFileName($class);
+		$fileName = self::generateClassFileName($class);
+		$classFile = 'app/class/' . $fileName;
+		$libraryFile = 'lib/src/' . $fileName;
 		if (file_exists($classFile)) {
 			include_once  $classFile;
+		} elseif (file_exists($libraryFile)) {
+			include_once  $libraryFile;
 		} else {
 			throw new Exception("Class : " . $class . " Not Found");
 		}
@@ -52,11 +56,10 @@ class Autoloader
 			$classArray
 		);
 		$class = implode('/', $ucClassArray);
-		$file = 'app/class/' . $class . '.php';
+		$file = $class . '.php';
 
 		return  $file;
 	}
-
 }
 
 /**

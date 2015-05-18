@@ -1,14 +1,14 @@
 <?php
 /**
- *....................................................................................
+ * ...................................................................................
  *                                 basic.php                                          *
  * ...................................................................................*
- * 
+ *
  * This is a configuration file. Configuration files are special files which are used
  * to set different configurations that should use in different part of the framework.
- * 
+ *
  * File     : basic.php
- * contains : basic php
+ * contains : PHP
  * Location : app/config/basic.php
  */
 
@@ -17,17 +17,17 @@
  * classes. There will be some occasions where we need to travel from the "common
  * way".
  */
-$_class = array(
+$_Class = array(
 	'required' => array(
 		'BasicObject' => 'app/class/BasicObject.php'
 	)
 );
 
-foreach ($_class as $key => $value) {
-	
+foreach ($_Class as $key => $value) {
+
 	//include required classes
 	if ($key == 'required') {
-		$requiredClasses = $_class['required'];
+		$requiredClasses = $_Class['required'];
 		foreach ($requiredClasses as $requiredClass => $classLocation) {
 			include_once $classLocation;
 		}
@@ -35,14 +35,14 @@ foreach ($_class as $key => $value) {
 }
 
 /**
- * If you have other configuration file other than this, then add an entry for it 
+ * If you have other configuration file other than this, then add an entry for it
  * here. It will automatically loaded in the application and thus you can utilize
  * your custom configuration in effective way.
  */
-$_conifFiles = array(
- 	//'custom' => 'some/custom.php'
+$_ConfigFiles = array(
+ 	'router' => 'router.php'
 );
 
-foreach ($_conifFiles as $key => $value) {
+foreach ($_ConfigFiles as $key => $value) {
 	include_once 'app/config/' . $value;
 }

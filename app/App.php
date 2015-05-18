@@ -35,19 +35,28 @@ class App
 	 * namespace_module                 => Namespace_Module_Controller_Index
 	 * ''                               => Core_Default_Controller_Index
 	 *
-	 * @param  string $controllerRef
-	 * @param  mixed  $inputs
-	 * @return void
+	 * @param  string  $controllerRef
+	 * @param  mixed   $inputs
+	 * @return boolean
 	 */
 	public static function run($controller = '', $action = '', $inputs = '')
 	{
 		try {
+			if ($controller == '') {
+				$http = self::getClass('core_http/client')
+					->setBaseUrl(self::getUrl());
+				$relPath = $http->getRelativePath();
+				$routerRef = self::geneateUnderScoreCasedName($relPath);
+				list($router, $actionPath, $action) = explode('_', $routerRef);
+
+			}
 			$controllerInstance = self::getController($controller);
 			$action = self::generateActionName($action);
 			if ($inputs != '') {
 				$controllerInstance->$action($inputs);
 			}
 			$controllerInstance->$action();
+			return true;
 
 		} catch (Exception $e) {
 			self::_generateException($e);
@@ -132,6 +141,18 @@ class App
 		return $instance;
 	}
 
+	public static function getClass($class)
+	{
+		try {
+			$className = self::generateClassName($class);
+			$instance = new $className();
+		} catch (Exception $e) {
+			self::_generateException($e);
+		}
+
+		return $instance;
+	}
+
 	/**
 	 * Use to get a helper object.
 	 *
@@ -186,6 +207,36 @@ class App
 	}
 
 	/**
+	 * get application url.
+	 *
+	 * @param  string $path
+	 * @return string
+	 */
+	public static function getUrl($path = '')
+	{
+		return $GLOBALS['_BaseUrl'] . $path;
+	}
+
+	/**
+	 * Use to generate underscore_case name.
+	 *
+	 * @param  string $name
+	 * @return string
+	 */
+	protected static function geneateUnderScoreCasedName($name)
+	{
+		if ($name == '') {
+			return '';
+		}
+		$modifiedName = implode('_', array_map(
+			function($element) {
+				return lcfirst($element);
+			},
+			explode('_', $name)
+		));
+		return $modifiedName;
+	}
+	/**
 	 * Use to modify the name in the class name way
 	 *
 	 * ie some_thing_in_this format => Some_Thing_In_This_Format
@@ -195,6 +246,9 @@ class App
 	 */
 	protected static function _generateProperName($classname)
 	{
+		if ($classname == '') {
+			return '';
+		}
 		$modifiedName = implode('_', array_map(
 			function($element) {
 				return ucfirst($element);
@@ -237,7 +291,11 @@ class App
 		}
 
 		$realSection = self::_generateProperName($section);
-		$CLASS = $module . '_' . $realSection . '_' . $class;
+		if ($realSection == '') {
+			$CLASS = $module . '_' . $class;
+		} else {
+			$CLASS = $module . '_' . $realSection . '_' . $class;
+		}
 		return $CLASS;
 	}
 
