@@ -62,10 +62,11 @@ class App
 				$moduleConfigFile = self::_getConfigJsonFile('module_config');
 				$modules = self::getClass('core_json/parser')
 					->input($moduleConfigFile)->getConfigNode('modules');
-				$moduleRef = self::geneateUnderScoreCasedName(
-					self::_findModuleByRouter($modules, $router)->name
-				);var_dump($moduleRef);
-				if ($moduleRef == '') { 
+				if ($moduleName = self::_findModuleByRouter($modules, $router) !== false) {
+					$moduleRef = self::geneateUnderScoreCasedName(
+						self::_findModuleByRouter($modules, $router)->name
+					);
+				} else {
 					//means requested router is not part of a module.
 					throw new Exception('Router :' . $router. ' does not exist.');
 				}
@@ -73,11 +74,10 @@ class App
 				//find controller using action path.
 				$controllerRef = self::geneateUnderScoreCasedName(
 					self::_generateProperName($actionPath, '-')
-				);var_dump($controllerRef);
+				);
 
 				//generate controller reference
-				$controller = $moduleRef . '/' . $controllerRef;
-				
+				$controller = $moduleRef . '/' . $controllerRef;			
 			}
 
 			//make controller instance and then trigger the action.
