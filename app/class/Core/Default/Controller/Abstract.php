@@ -59,6 +59,50 @@ class Core_Default_Controller_Abstract extends BasicObject
 	}
 
 	/**
+	 * Use to get POST value.
+	 *
+	 * @param  string $reference
+	 * @return mixed
+	 */
+	public function getPost($reference = '')
+	{
+		return Core_Http_Client::post($reference);
+	}
+
+	/**
+	 * Use to get GET value.
+	 *
+	 * @param  string $reference
+	 * @return mixed
+	 */
+	public function getParam($reference = '')
+	{
+		return Core_Http_Client::get($reference);
+	}
+
+	/**
+	 * Use to check whether a POST request exist.
+	 *
+	 * @param  string  $reference
+	 * @return boolean
+	 */
+	public function hasPost($reference = '')
+	{
+		return Core_Http_Client::hasPOST($reference);
+	}
+
+	/**
+	 * Use to check whether a GET request exist.
+	 *
+	 * @param  string  $reference
+	 * @return boolean
+	 */
+	public function hasParam($reference)
+	{
+		return Core_Http_Client::hasGET($reference);
+	}
+
+	/**
 	 * Use to add a new block
 	 *
 	 * The type of the block is the reference for a valid block

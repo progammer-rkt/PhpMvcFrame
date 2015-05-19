@@ -75,4 +75,76 @@ class Core_Http_Client
 		return $this->_relativePath;
 	}
 
+	/**
+	 * Use to get POST value based on the reference.
+	 *
+	 * $_POST is an array
+	 *
+	 * @param  string $reference
+	 * @return mixed
+	 */
+	public static function post($reference = '')
+	{
+		if($reference == '') {
+			return $_POST;
+		}
+		return $_POST[$reference];
+	}
+
+	/**
+	 * Use to get GET value based on the reference.
+	 *
+	 * $_GET is an array
+	 *
+	 * @param  string $reference
+	 * @return mixed
+	 */
+	public static function get($reference = '')
+	{
+		if($reference == '') {
+			return $_GET;
+		}
+		return $_GET[$reference];
+	}
+
+
+	/**
+	 * Use to check whether a POST exist.
+	 *
+	 * $_POST is an array
+	 * 
+	 * @param  string  $reference
+	 * @return boolean
+	 */
+	public static function hasPOST($reference = '')
+	{
+		if ($reference == '') {
+			if (count($_POST) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		return isset($_POST[$reference]);
+	}
+
+	/**
+	 * Use to check whether a GET exist.
+	 *
+	 * $_GET is an array
+	 * 
+	 * @param  string  $reference
+	 * @return boolean
+	 */
+	public static function hasGET($reference = '')
+	{
+		if ($reference == '') {
+			if (count($_GET) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		return isset($_GET[$reference]);
+	}
 }

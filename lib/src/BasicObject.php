@@ -36,30 +36,42 @@ class BasicObject
 	public function __call($methodname, $parameters)
 	{
 		if(strpos($methodname, 'set') !== false) {
-			$property = ltrim($methodname, 'set');
-			preg_match_all('/[A-Z][^A-Z]*/', $property, $results);
-			$realProperty = implode('_', array_map(
-				function($element) {
-					return strtolower($element);
-				},
-				$results[0])
-			);
+			$realProperty = $this->_getRealProperty($methodname);
 			$this->$realProperty = $parameters[0];
 			return $this;
 		}
 
 		if (strpos($methodname, 'get') !== false) {
-			$property = ltrim($methodname, 'get');
-			preg_match_all('/[A-Z][^A-Z]*/', $property, $results);
-			$realProperty = implode('_', array_map(
-				function($element) {
-					return strtolower($element);
-				},
-				$results[0])
-			);
+			$realProperty = $this->_getRealProperty($methodname);
 			return $this->$realProperty;
 		}
 
-		return $this;
+		if (strpos($methodname, 'has') !== false) {
+			$realProperty = $this->_getRealProperty($methodname);
+			return isset($this->$realProperty);
+		}
+
+		throw new Exception('Method : ' . $methodname . '() Does not exist.');
+		
+	}
+
+	/**
+	 * Use to get the property from the method name.
+	 *
+	 * @param  string $method
+	 * @return string $realProperty
+	 */
+	protected function _getRealProperty($method)
+	{
+		$property = ltrim($method, 'set');
+		preg_match_all('/[A-Z][^A-Z]*/', $property, $results);
+		$realProperty = implode('_', array_map(
+			function($element) {
+				return strtolower($element);
+			},
+			$results[0])
+		);
+
+		return $realProperty;
 	}
 }
