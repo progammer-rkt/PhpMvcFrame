@@ -43,19 +43,52 @@ class App
 	{
 		try {
 			if ($controller == '') {
+
+				//find the relative path.
 				$http = self::getClass('core_http/client')
 					->setBaseUrl(self::getUrl());
-				$relPath = $http->getRelativePath();
-				$routerRef = self::geneateUnderScoreCasedName($relPath);
-				list($router, $actionPath, $action) = explode('_', $routerRef);
+				$relPath = trim($http->getRelativePath(), '/');
 
+				//seperate router, controller and action.
+				$routerRefArr = self::_makeRouterReferenceArray($relPath);
+				if (count($routerRefArr) == 3) {
+					list($router, $actionPath, $action) = $routerRefArr;
+				} else {
+					throw new Exception('Requested ation cannot be processed.');	
+					die();
+				}
+
+				//find module using router
+				$moduleConfigFile = self::_getConfigJsonFile('module_config');
+				$modules = self::getClass('core_json/parser')
+					->input($moduleConfigFile)->getConfigNode('modules');
+				$moduleRef = self::geneateUnderScoreCasedName(
+					self::_findModuleByRouter($modules, $router)->name
+				);var_dump($moduleRef);
+				if ($moduleRef == '') { 
+					//means requested router is not part of a module.
+					throw new Exception('Router :' . $router. ' does not exist.');
+				}
+
+				//find controller using action path.
+				$controllerRef = self::geneateUnderScoreCasedName(
+					self::_generateProperName($actionPath, '-')
+				);var_dump($controllerRef);
+
+				//generate controller reference
+				$controller = $moduleRef . '/' . $controllerRef;
+				
 			}
+
+			//make controller instance and then trigger the action.
 			$controllerInstance = self::getController($controller);
 			$action = self::generateActionName($action);
 			if ($inputs != '') {
 				$controllerInstance->$action($inputs);
+			} else {
+				$controllerInstance->$action();
 			}
-			$controllerInstance->$action();
+			
 			return true;
 
 		} catch (Exception $e) {
@@ -214,7 +247,10 @@ class App
 	 */
 	public static function getUrl($path = '')
 	{
-		return $GLOBALS['_BaseUrl'] . $path;
+		$generalConfigFile = self::_getConfigJsonFile('general_config');
+		$baseUrl = self::getClass('core_json/parser')->input($generalConfigFile)
+			->getConfigNode('general/urls/base_url');
+		return $baseUrl . $path;
 	}
 
 	/**
@@ -244,7 +280,7 @@ class App
 	 * @param  string $classname
 	 * @return string $modifiedName
 	 */
-	protected static function _generateProperName($classname)
+	protected static function _generateProperName($classname, $seperator = '_')
 	{
 		if ($classname == '') {
 			return '';
@@ -253,7 +289,7 @@ class App
 			function($element) {
 				return ucfirst($element);
 			},
-			explode('_', $classname)
+			explode($seperator, $classname)
 		));
 		return $modifiedName;
 	}
@@ -332,5 +368,84 @@ class App
 	{
 		echo $e->getMessage() . ' in ' . '`' . $e->getFile() .'(' . $e->getLine() . ')`';
 		die();
+	}
+
+	/**
+	 * Use to generate router reference array
+	 *
+	 * Router reference array looks like
+	 *
+	 *   array (
+	 *      $router, $controller-path, $action
+	 *   )
+	 *   
+	 * @param  string $reference
+	 * @return array
+	 */
+	protected static function _makeRouterReferenceArray($reference)
+	{
+		//no router, controller and action
+		if (count(explode('/', $reference)) == 0) {
+			$routerRefArr = array('default', 'index', 'index');
+
+		//router exist. no controller and action
+		} elseif (count(explode('/', $reference)) == 1) {
+			$routerRefArr = explode('/', $reference);
+			$routerRefArr = array_merge($routerRefArr, array('index', 'index'));
+				
+		//router and controller exist. But not action.
+		} elseif (count(explode('/', $reference)) == 2) {
+			$routerRefArr = explode('/', $reference);
+			$routerRefArr = array_merge($routerRefArr, array('index'));
+
+		//a router, controller and an action does exist.
+		} elseif (count(explode('/', $reference)) == 3) {
+			$routerRefArr = explode('/', $reference);
+		} else {
+			$routerRefArr = false;
+		}
+
+		return $routerRefArr;
+	}
+
+	/**
+	 * Use to get a json configuration file based on it's key.
+	 *
+	 * @param  string $fileKey
+	 * @return string
+	 */
+	protected static function _getConfigJsonFile($fileKey)
+	{
+		$jsonParser = new Core_Json_Parser('app/config/json/basic.json');
+		$configFiles = $jsonParser
+			->getConfigNode('config_files');
+		foreach ($configFiles as $fileObj) {
+			if (isset($fileObj->general_config)) {
+				$configFile = $fileObj->$fileKey;
+			}
+		}
+
+		return $configFile;
+	}
+
+	/**
+	 * Use to find the module based on the router.
+	 * 
+	 * @param  array    $modules  Module list.
+	 * @param  string   $router
+	 * @return StdClass | boolean
+	 */
+	protected static function _findModuleByRouter($modules, $router)
+	{
+		foreach ($modules as $moduleRefObj) {
+			$moduleKeyArray = get_object_vars($moduleRefObj);
+			foreach ($moduleKeyArray as $realModule) {
+				if ($realModule->router == $router) {
+					return $realModule;
+				}
+			}
+		}
+
+		return false;
 	}
 }

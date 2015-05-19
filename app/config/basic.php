@@ -12,37 +12,15 @@
  * Location : app/config/basic.php
  */
 
+$jsonParser = new Core_Json_Parser('app/config/json/basic.json');
+
 /**
  * This array is used to hold special autoloading classes when deal with special
  * classes. There will be some occasions where we need to travel from the "common
  * way".
  */
-$_Class = array(
-	'required' => array(
-		'BasicObject' => 'app/class/BasicObject.php'
-	)
-);
+$_Class = $jsonParser->getConfigNode('required_files');
 
-foreach ($_Class as $key => $value) {
-
-	//include required classes
-	if ($key == 'required') {
-		$requiredClasses = $_Class['required'];
-		foreach ($requiredClasses as $requiredClass => $classLocation) {
-			include_once $classLocation;
-		}
-	}
-}
-
-/**
- * If you have other configuration file other than this, then add an entry for it
- * here. It will automatically loaded in the application and thus you can utilize
- * your custom configuration in effective way.
- */
-$_ConfigFiles = array(
- 	'router' => 'router.php'
-);
-
-foreach ($_ConfigFiles as $key => $value) {
-	include_once 'app/config/' . $value;
+foreach ($_Class as $fileObj) {
+	include_once $fileObj->location;
 }

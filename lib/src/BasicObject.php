@@ -10,7 +10,7 @@
  *
  * File     : BasicObject.php
  * contains : class
- * Location : app/class/BasicObject.php
+ * Location : lib/src/BasicObject.php
  */
 
 /**

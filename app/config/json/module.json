@@ -1,0 +1,21 @@
+{
+	"config" : {
+		"modules" : [
+			{
+			
+				"core_default" : {
+					"name"   : "Core_Default",
+					"status" : 1,
+					"router" : ""
+				}
+			},
+			{
+				"demo_fundraiser" : {
+					"name"   : "Demo_Fundraiser",
+					"status" : 1,
+					"router" : "controller"
+				}
+			}
+		]
+	}
+}

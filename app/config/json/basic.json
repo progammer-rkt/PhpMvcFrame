@@ -1,0 +1,12 @@
+{
+	"config" : {
+		"required_files" : [{
+			"location" : "lib/src/BasicObject.php"
+		}],
+
+		"config_files" : [{
+			"module_config"  : "app/config/json/module.json",
+			"general_config" : "app/config/json/general.json"
+		}]
+	}
+}

@@ -22,8 +22,8 @@ if ($develper_mode == 1) {
 	ini_set('display_errors', 1);
 }
 
-include 'app/config/basic.php'; //basic configuraton files. global variables here
 include 'app/Autoloader.php'; //here is automatic autoloading of classes takes place.
+include 'app/config/basic.php'; //basic configuraton files. global variables here
 include 'app/App.php';  //application is run by this file. Lot of utility functions
 						//in your hand.
 
@@ -41,7 +41,3 @@ try {
 	echo $e->getMessage();
 	die();
 }
-
- // $fundraiser = App::getModel('fund_raiser');
- // $fundraiser->getAll();
- // var_dump($fundraiser);die();

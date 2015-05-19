@@ -1,0 +1,10 @@
+{
+	"config" : {
+		"general" : {
+			"urls" : {
+				"base_url"  : "http://localhost/rajeev/test/my_framework/",
+				"asset_url" : "http://localhost/rajeev/test/my_framework/design/assets/"
+			}
+		}
+	}
+}
