@@ -1,0 +1,15 @@
+{
+	"config" : {
+		"active_database" : "default",
+		"databases" : [
+			{
+				"id"       : "default",
+				"type"     : "mysql",
+				"server"   : "localhost",
+				"name"     : "default",
+				"username" : "root",
+				"password" : "",
+			}
+		]
+	}
+}

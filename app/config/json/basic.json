@@ -5,8 +5,9 @@
 		}],
 
 		"config_files" : [{
-			"module_config"  : "app/config/json/module.json",
-			"general_config" : "app/config/json/general.json"
+			"module_config"   : "app/config/json/module.json",
+			"general_config"  : "app/config/json/general.json",
+			"database_config" : "app/config/json/database.json"
 		}]
 	}
 }
