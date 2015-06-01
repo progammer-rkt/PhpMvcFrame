@@ -5,7 +5,7 @@
 				"core_default" : {
 					"name"   : "Core_Default",
 					"status" : 1,
-					"router" : "default"
+					"router" : ""
 				}
 			}
 		]

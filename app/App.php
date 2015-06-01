@@ -279,6 +279,7 @@ class App
 		));
 		return $modifiedName;
 	}
+
 	/**
 	 * Use to modify the name in the class name way
 	 *
@@ -368,8 +369,10 @@ class App
 	}
 
 	/**
-	 * Use to generate exception
+	 * Use to generate exception.
 	 *
+	 * @param  Exception $e
+	 * @return void
 	 */
 	protected static function _generateException(Exception $e)
 	{

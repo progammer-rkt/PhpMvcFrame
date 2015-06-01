@@ -20,6 +20,16 @@
  * @see Core_Default_View_Index_Index
  */
 ?>
-<?php
-var_dump($this);
-echo $this->getContent();
+
+<!--
+	This section shows how to call memeber methods from view class
+-->
+<h1><?php echo $this->Heading() ?></h1>
+<p><?php echo $this->DefaultContent() ?></p>
+
+<!--
+	This section will show you how can we collect a data that is set via controller
+	(Using magic setter).
+-->
+
+<p>The Controller says : "<?php echo $this->getContent() ?>"</p>

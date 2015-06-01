@@ -26,7 +26,13 @@
   * @package  Core_Default
   * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
   */
- class Core_Default_View_Index extends Core_Default_View_Abstract
- {
- 	protected $_template = 'core/default/index/index.phtml';
- }
+class Core_Default_View_Index extends Core_Default_View_Abstract
+{
+
+    /**
+     * Use to set default template file.
+     *
+     * @var string
+     */
+    protected $_template = 'core/default/index/index.phtml';
+}

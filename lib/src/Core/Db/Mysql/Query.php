@@ -115,7 +115,7 @@ class Core_Db_Mysql_Query extends BasicObject
 		if (in_array($type, $availableQueryTypes)) {
 			$this->query['type'] = $type;
 		} else {
-			throw new Exception("Quer Type `" . $type . "Does not Exist..");
+			throw new Exception("Query Type `" . $type . "Does not Exist..");
 		}
 
 		return $this;
@@ -147,7 +147,7 @@ class Core_Db_Mysql_Query extends BasicObject
 			$this->query['select_fields'] = $fields;
 		} else {
 			throw new Exception(
-				"Select fields must be provided an array or as a string `*`"
+				"Select-fields must be provided as an array or it should be `*` (string)"
 			);
 
 		}

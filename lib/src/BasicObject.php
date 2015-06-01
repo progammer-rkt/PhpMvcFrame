@@ -92,7 +92,7 @@ class BasicObject
 	{
 		if (is_array($collection)) {
 			foreach ($collection as $data) {
-				$this->setData($data); //var_dump($this->getData());
+				$this->setData($data);
 				$this->_collection[] = $this->getData();
 			}
 		} else {

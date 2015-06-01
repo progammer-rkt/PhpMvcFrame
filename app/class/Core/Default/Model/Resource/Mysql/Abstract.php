@@ -68,7 +68,7 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	/**
 	 * Use to load an entity
 	 *
-	 * @param  int $id
+	 * @param  int                                   $id
 	 * @return Core_Default_Model_Resource_Abstract
 	 */
 	public function load($id = '')
@@ -85,16 +85,26 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 		$query = $this->instance->prepareQuery();
 		$result = $this->instance->getOutput($query);
 
+		//no result for corresponding query. So not setting collection and entity
 		if($result === false) {
 			return $this;
 		}
+
+		//query result posses only one item. Hence we are setting entity.
 		if ($this->instance->getResultCount() == 1) {
 			$this->setData($result[0]);
 		}
+		/**
+		 * Make sure a collection request was made. If yes, then setting a collection.
+		 * To load an entity basically request looks like
+		 * `Core_Default_Model_Mysql_Abstract::load($id)`. For a collection it will
+		 * look like `Core_Default_Model_Mysql_Abstract::load()`
+		 */
 		if (!$isEntity) {
 			$this->setBasicCollection($result);
 		}
 
+		//return part. return either entity or collection as per the request nature.
 		if ($isEntity) {
 			return $this->getData();
 		} else{
@@ -116,8 +126,12 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	}
 
 	/**
-	 * Use to filter out collection
+	 * Use to filter out collection.
 	 *
+	 * @param  string                                      $field
+	 * @param  string                                      $value
+	 * @param  string                                      $operator
+	 * @param  boolean                                     $whereRelation
 	 * @return Core_Default_Model_Resource_Mysql_Abstract
 	 */
 	public function addFieldToFilter(
@@ -195,16 +209,5 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 		}
 
 		return $database;
-	}
-
-	protected function _prepareFilterQueryArray(
-		$field, $value, $operator, $whereRelation
-	) {
-		$query = array(
-			'field' => trim($field),
-			'value' => trim($value),
-			'operator' => $operator,
-			'related_by' => $whereRelation
-		);
 	}
 }

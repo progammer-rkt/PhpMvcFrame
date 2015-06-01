@@ -29,4 +29,33 @@
 class Core_Default_View_Index_Index extends Core_Default_View_Index
 {
 
+	/**
+	 * Use to set some custom content from the controller.
+	 *
+	 * @var string
+	 */
+	protected $content = '';
+
+	/**
+	 * Use to provide heading.
+	 *
+	 * @return  string $header
+	 */
+	public function Heading()
+	{
+		$header = 'SimpleMage Framework';
+		return $header;
+	}
+
+	/**
+	 * Use to return default content.
+	 *
+	 * @return  string $content
+	 */
+	public function DefaultContent()
+	{
+		$content = 'Welcome to SimpleMage Framework. A light-weight MVC framework in PHP'
+			. ' that every Magento Developer need to use.';
+		return $content;
+	}
 }

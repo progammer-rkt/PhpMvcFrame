@@ -62,7 +62,7 @@ class Core_Default_Model_Abstract extends BasicObject
 	/**
 	 * Use to get full collection.
 	 *
-	 * @return [type] [description]
+	 * @return array
 	 */
 	public function getAll()
 	{
@@ -71,6 +71,12 @@ class Core_Default_Model_Abstract extends BasicObject
 
 	}
 
+	/**
+	 * Use to load an entity item.
+	 *
+	 * @param  int                          $id
+	 * @return Core_Default_Model_Abstract
+	 */
 	public function load($id)
 	{
 		$all = $this->getResource()->load($id);
@@ -78,17 +84,34 @@ class Core_Default_Model_Abstract extends BasicObject
 		return $this;
 	}
 
+	/**
+	 * Use to set a collection on model.
+	 *
+	 * @param array                         $collection
+	 * @return Core_Default_Model_Abstract
+	 */
 	public function setCollection($collection)
 	{
 		$this->_collection = $collection;
 		return $this;
 	}
 
+	/**
+	 * Use to get collection of a model.
+	 *
+	 * @return array
+	 */
 	public function getCollection()
 	{
 		return $this->_collection;
 	}
 
+	/**
+	 * Use to set an entity on a model.
+	 *
+	 * @param  Core_Object_Entity           $data
+	 * @return Core_Default_Model_Abstract
+	 */
 	public function setData($data)
 	{
 		if ($data instanceof Core_Object_Entity) {
@@ -105,6 +128,12 @@ class Core_Default_Model_Abstract extends BasicObject
 		return $this;
 	}
 
+	/**
+	 * Use to get an entity from a model.
+	 *
+	 * @param  string $data
+	 * @return mixed
+	 */
 	public function getData($data = null)
 	{
 		if (is_null($data)) {
@@ -114,14 +143,13 @@ class Core_Default_Model_Abstract extends BasicObject
 		}
 	}
 
-
 	/**
 	 * Model initialization.
 	 *
 	 * A model should be initialized with a valid resource. Without having a valid
 	 * resource, a model can't make a collection or retrieve an item from database.
 	 *
-	 * @param  string                      $resourceRef
+	 * @param  string                       $resourceRef
 	 * @return Core_Default_Model_Abstract
 	 */
 	protected function _init($resourceRef)

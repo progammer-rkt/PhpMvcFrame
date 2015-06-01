@@ -21,7 +21,7 @@
  * framework. This package is used for controlling HTTP Requests in better way.
  *
  * @category Core
- * @package  Core_Db
+ * @package  Core_Http
  * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
 
