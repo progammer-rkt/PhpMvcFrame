@@ -1,15 +1,18 @@
 <?php
 /**
- *....................................................................................
- *                                 App.php                                           *
- * ..................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is file is used to make life easier. In another way, this file holds more
- * complex and basic codes, but that makes logic seperation more simple and efficient.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : App.php
- * contains : class
- * Location : app/class/App.php
+ * @category   Core
+ * @package    Core_Default
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -21,6 +24,10 @@
  *
  * This class holds lot of reusable methods in it. Using those methods, we can
  * effectively get any object from anywhere.
+ *
+ * @category Core
+ * @package  Core_Default
+ * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
 class App
 {
@@ -54,7 +61,7 @@ class App
 				if (count($routerRefArr) == 3) {
 					list($router, $actionPath, $action) = $routerRefArr;
 				} else {
-					throw new Exception('Requested ation cannot be processed.');	
+					throw new Exception('Requested ation cannot be processed.');
 					die();
 				}
 
@@ -77,7 +84,7 @@ class App
 				);
 
 				//generate controller reference
-				$controller = $moduleRef . '/' . $controllerRef;			
+				$controller = $moduleRef . '/' . $controllerRef;
 			}
 
 			//make controller instance and then trigger the action.
@@ -88,7 +95,7 @@ class App
 			} else {
 				$controllerInstance->$action();
 			}
-			
+
 			return true;
 
 		} catch (Exception $e) {
@@ -378,7 +385,7 @@ class App
 	 *   array (
 	 *      $router, $controller-path, $action
 	 *   )
-	 *   
+	 *
 	 * @param  string $reference
 	 * @return array
 	 */
@@ -392,7 +399,7 @@ class App
 		} elseif (count(explode('/', $reference)) == 1) {
 			$routerRefArr = explode('/', $reference);
 			$routerRefArr = array_merge($routerRefArr, array('index', 'index'));
-				
+
 		//router and controller exist. But not action.
 		} elseif (count(explode('/', $reference)) == 2) {
 			$routerRefArr = explode('/', $reference);
@@ -414,7 +421,7 @@ class App
 	 * @param  string $fileKey
 	 * @return string
 	 */
-	protected static function _getConfigJsonFile($fileKey)
+	public static function _getConfigJsonFile($fileKey)
 	{
 		$jsonParser = new Core_Json_Parser('app/config/json/basic.json');
 		$configFiles = $jsonParser
@@ -430,7 +437,7 @@ class App
 
 	/**
 	 * Use to find the module based on the router.
-	 * 
+	 *
 	 * @param  array    $modules  Module list.
 	 * @param  string   $router
 	 * @return StdClass | boolean

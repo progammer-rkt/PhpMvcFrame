@@ -1,17 +1,18 @@
 <?php
 /**
- *....................................................................................
- *                                 Index.php                                         *
- * ..................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is a helper class. A helper class is used to hold helpful properties and
- * functions which can be used by other logic sections such as model, view, contoller
- * etc. Helpful methods and or properties will be something that will do a single job
- * for you.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : Index.php
- * contains : class
- * Location : app/class/Helper/Index.php
+ * @category   Core
+ * @package    Core_Deafult
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -19,13 +20,17 @@
  *
  * This is the default helper class. Feel free to update this helper with useful
  * common helper methods that can be used by entire modules in the application.
+ *
+ * @category Core
+ * @package  Core_Default
+ * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>s
  */
 class Core_Default_Helper_Index
 {
 
 	/**
 	 * Use to geneate random characters based on the length provided.
-	 * 
+	 *
 	 * @param  int    $count
 	 * @return string $s
 	 */

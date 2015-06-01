@@ -10,33 +10,56 @@
  * http://opensource.org/licenses/mit-license.php
  *
  * @category   Core
- * @package    Core_Deafult
+ * @package    Core_Db
  * @copyright  Copyright (c) 2015
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
- * Core_Default_Model_Index Class
+ * Query Type Abstract Class
  *
- * This is just an example of default entity model. Please how we are initializing
- * resources via model.
+ * This class is used to process any type of query.
  *
  * @category Core
- * @package  Core_Default
+ * @package  Core_Db
  * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
-class Core_Default_Model_Index extends Core_Default_Model_Abstract
+class Core_Db_Mysql_Query_Type_Abstract
 {
+
+	/**
+	 * Use to store the query array.
+	 *
+	 * @var array
+	 */
+	protected $_query;
+
+	/**
+	 * Use to store table name.
+	 *
+	 * @var string
+	 */
+	protected $_table = '';
+
+	/**
+	 * Use to store db name.
+	 *
+	 * @var string
+	 */
+	protected $_db = '';
 
 	/**
 	 * Constructor
 	 *
-	 * @return void
+	 * @param string $query
+	 * @param string $table
+	 * @param string $db
 	 */
-	public function __construct()
+	protected function __construct($query, $table, $db)
 	{
-		$this->_init('core_default/default');
-		parent::__construct();
+		$this->_query = $query;
+		$this->_table = $table;
+		$this->_db = $db;
+		return $this;
 	}
-
-} 
+}

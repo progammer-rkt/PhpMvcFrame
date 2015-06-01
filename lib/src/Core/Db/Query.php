@@ -10,33 +10,36 @@
  * http://opensource.org/licenses/mit-license.php
  *
  * @category   Core
- * @package    Core_Deafult
+ * @package    Core_Db
  * @copyright  Copyright (c) 2015
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
- * Core_Default_Model_Index Class
+ * Query Constant class
  *
- * This is just an example of default entity model. Please how we are initializing
- * resources via model.
+ * This class is dedicated to hold some useful constant which can be referred in
+ * datbase query operations.
  *
  * @category Core
- * @package  Core_Default
+ * @package  Core_Db
  * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
-class Core_Default_Model_Index extends Core_Default_Model_Abstract
+class Core_Db_Query
 {
+	const EQUALS           = '=';
+	const NOT_EQUAL        = '!=';
+	const GREATER          = '>';
+	const LESSER           = '<';
+	const GREATER_OR_EQUAL = '>=';
+	const LESSER_OR_EQUAL  = '<=';
 
-	/**
-	 * Constructor
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->_init('core_default/default');
-		parent::__construct();
-	}
+	const SELECT = 'SELECT';
+	const DROP   = 'DROP';
+	const INSERT = 'INSERT';
+	const UPDATE = 'UPDATE';
+	const DELETE = 'DELETE';
 
-} 
+	const EVERY_FIELD = '*';
+	const WHERE_ALL   = 1;
+}

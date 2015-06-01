@@ -6,9 +6,9 @@
 				"id"       : "default",
 				"type"     : "mysql",
 				"server"   : "localhost",
-				"name"     : "default",
+				"name"     : "test_database",
 				"username" : "root",
-				"password" : "",
+				"password" : ""
 			}
 		]
 	}

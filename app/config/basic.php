@@ -1,15 +1,18 @@
 <?php
 /**
- * ...................................................................................
- *                                 basic.php                                          *
- * ...................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is a configuration file. Configuration files are special files which are used
- * to set different configurations that should use in different part of the framework.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : basic.php
- * contains : PHP
- * Location : app/config/basic.php
+ * @category   Core
+ * @package    Core_Deafult
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 $jsonParser = new Core_Json_Parser('app/config/json/basic.json');

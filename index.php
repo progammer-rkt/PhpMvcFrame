@@ -1,16 +1,23 @@
 <?php
 /**
- *....................................................................................
- *                                 Index.php                                         *
- * ..................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is the entry point to the demo framework. The framework is constructed in such
- * a way that, we can enter into the domo section only through this file.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : index.php
- * contains : basic php
- * Location : /index.php
- *
+ * @category   Core
+ * @package    Core_Default
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+ */
+
+/**
+ * This is the entry point to the demo framework. The framework is constructed in
+ * such a way that, we can enter into the domo section only through this file.
  */
 
 /**
@@ -22,10 +29,11 @@ if ($develper_mode == 1) {
 	ini_set('display_errors', 1);
 }
 
-include 'app/Autoloader.php'; //here is automatic autoloading of classes takes place.
+include 'lib/src/Autoloader.php'; //here is automatic autoloading of classes takes
+                                  //place.
 include 'app/config/basic.php'; //basic configuraton files. global variables here
 include 'app/App.php';  //application is run by this file. Lot of utility functions
-						//in your hand.
+                        //in your hand.
 
 /**
  * Use to run the demo application

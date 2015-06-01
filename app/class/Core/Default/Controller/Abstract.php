@@ -1,16 +1,18 @@
 <?php
 /**
- * ..................................................................................
- *                                 Abstract.php                                      *
- * ..................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is a controller file. A controller is responsible for making a valid relation
- * with model and view. This logic section combines model logic section with view
- * logic section and thus the whole framework work together and forms the output.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : Abstract.php
- * contains : class
- * Location : app/class/Core/Default/View/Abstract.php
+ * @category   Core
+ * @package    Core_Deafult
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -18,13 +20,18 @@
  *
  * This is the parent of all controller classes. So all common utilities of
  * controllers wil reside here.
+ *
+ * @category Core
+ * @package  Core_Default
+ * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
 class Core_Default_Controller_Abstract extends BasicObject
 {
+
 	/**
 	 * Constructor
 	 *
-	 * @return  void
+	 * @return void
 	 */
 	public function __construct()
 	{
@@ -32,7 +39,9 @@ class Core_Default_Controller_Abstract extends BasicObject
 	}
 
 	/**
-	 * Use to hold blocks which are associated with a particular request
+	 * Use to hold blocks which are associated with a particular request.
+	 *
+	 * @return array
 	 */
 	protected $_blocks = array();
 
@@ -40,7 +49,7 @@ class Core_Default_Controller_Abstract extends BasicObject
 	 * This action will render the entire view section that are added in the
 	 * controller.
 	 *
-	 * @return  void
+	 * @return void
 	 */
 	public function render()
 	{

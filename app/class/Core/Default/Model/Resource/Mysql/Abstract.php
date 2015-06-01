@@ -1,16 +1,18 @@
 <?php
 /**
- *....................................................................................
- *                                 Abstract.php                                       *
- * ...................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is a resource file. Resource files are used to communicate with database. you
- * can include databse quries here. A resource file should manage both collection and
- * an entity simultaneously.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : Abstract.php
- * contains : class
- * Location : app/class/Core/Default/Model/Resource/Mysql/Abstract.php
+ * @category   Core
+ * @package    Core_Deafult
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -18,6 +20,10 @@
  *
  * This class is the ultimate resource class. Every resources will extend this class
  * and thus the utilities provided by this abstract class.
+ *
+ * @category Core
+ * @package  Core_Default
+ * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
 class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 {
@@ -30,16 +36,18 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	protected $_table;
 
 	/**
-	 * Use to store a single entity.
+	 * Use to store primary field name.
 	 *
+	 * @var string
 	 */
-	protected $entity = '';
+	protected $_primaryField;
 
 	/**
-	 * Use to store a collection
+	 * Use to hold active database configuration.
 	 *
+	 * @var stdClass
 	 */
-	protected $collection = '';
+	protected $db;
 
 	/**
 	 * constructor
@@ -48,7 +56,12 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	 */
 	public function __construct()
 	{
-		$this->$connection = $this->makeConnection();
+		$this->instance = App::getClass('core_db/mysql_query');
+		$this->makeConnection();
+
+		$this->instance->setTableName($this->_table);
+		$this->instance->setDbName($this->db->name);
+
 		return $this;
 	}
 
@@ -58,27 +71,72 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	 * @param  int $id
 	 * @return Core_Default_Model_Resource_Abstract
 	 */
-	public function load($id)
+	public function load($id = '')
 	{
+		$isEntity = false;
+		//prepare query to load a single entity.
+		if (is_numeric($id)) {
+			$isEntity = true;
+			$this->instance->addQueryType(Core_Db_Query::SELECT)
+				->addSelectFields(Core_Db_Query::EVERY_FIELD)
+				->addWHERE($this->_primaryField, $id, Core_Db_Query::EQUALS);
+		}
 
+		$query = $this->instance->prepareQuery();
+		$result = $this->instance->getOutput($query);
+
+		if($result === false) {
+			return $this;
+		}
+		if ($this->instance->getResultCount() == 1) {
+			$this->setData($result[0]);
+		}
+		if (!$isEntity) {
+			$this->setBasicCollection($result);
+		}
+
+		if ($isEntity) {
+			return $this->getData();
+		} else{
+			return $this->getBasicCollection();
+		}
 	}
 
 	/**
 	 * Use to get full collection of the entity
 	 *
+	 * @return Core_Default_Model_Resource_Mysql_Abstract
 	 */
 	public function getCollection()
 	{
-
+		$this->instance->addQueryType(Core_Db_Query::SELECT)
+			->addSelectFields(Core_Db_Query::EVERY_FIELD)
+			->addWHERE('', '', Core_Db_Query::WHERE_ALL);
+		return $this;
 	}
 
 	/**
 	 * Use to filter out collection
 	 *
+	 * @return Core_Default_Model_Resource_Mysql_Abstract
 	 */
-	public function addFilter()
-	{
+	public function addFieldToFilter(
+		$field, $value, $operator = '==', $whereRelation = false
+	) {
+		$this->instance->addWHERE($field, $value, $operator, $whereRelation);
+		return $this;
+	}
 
+	/**
+	 * Use to add select fields.
+	 *
+	 * @param  mixed                                       $fields
+	 * @return Core_Default_Model_Resource_Mysql_Abstract
+	 */
+	public function addFieldToSelect($fields)
+	{
+		$this->instance->addSelectFields($fields);
+		return $this;
 	}
 
 	/**
@@ -89,7 +147,7 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	protected function makeConnection()
 	{
 		//retrieve server, username and password from active database
-		$dbConfigFile = self::_getConfigJsonFile('database_config');
+		$dbConfigFile = App::_getConfigJsonFile('database_config');
 		$activeDBRef = $this->getParser()->input($dbConfigFile)
 			->getConfigNode('active_database');
 		$activeDb = $this->_getActiveDatabase($activeDBRef); //stdClass
@@ -97,16 +155,8 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 		$username = $activeDb->username;
 		$password = $activeDb->password;
 
-		// Create connection
-		$conn = mysqli_connect($servername, $username, $password);
-
-		// Check connection
-		if (!$conn) {
-		    throw new Exception("Connection failed: " . mysqli_connect_error());
-		}
-
-		$this->connection = $conn;
-		$this->$dbName = $activeDb->name;
+		$this->instance->trigger($servername, $username, $password);
+		$this->db = $activeDb;
 		return $this;
 	}
 
@@ -117,7 +167,7 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	 */
 	protected function getParser()
 	{
-		return App::getClass('core_json/parser')
+		return App::getClass('core_json/parser');
 	}
 
 	/**
@@ -130,7 +180,7 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 	{
 		$database = false;
 		$jsonParser = $this->getParser();
-		$dbConfigFile = self::_getConfigJsonFile('database_config');
+		$dbConfigFile = App::_getConfigJsonFile('database_config');
 		$databases = $jsonParser->input($dbConfigFile)->getConfigNode('databases');
 		foreach ($databases as $db) {
 			if ($db->id == $dbId) {
@@ -145,5 +195,16 @@ class Core_Default_Model_Resource_Mysql_Abstract extends BasicObject
 		}
 
 		return $database;
+	}
+
+	protected function _prepareFilterQueryArray(
+		$field, $value, $operator, $whereRelation
+	) {
+		$query = array(
+			'field' => trim($field),
+			'value' => trim($value),
+			'operator' => $operator,
+			'related_by' => $whereRelation
+		);
 	}
 }

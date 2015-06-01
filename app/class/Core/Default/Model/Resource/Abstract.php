@@ -1,16 +1,18 @@
 <?php
 /**
- *....................................................................................
- *                                 Abstract.php                                       *
- * ...................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
  *
- * This is a resource file. Resource files are used to communicate with database. you
- * can include databse quries here. A resource file should manage both collection and
- * an entity simultaneously.
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
  *
- * File     : Abstract.php
- * contains : class
- * Location : app/class/Core/Default/Model/Resource/Abstract.php
+ * @category   Core
+ * @package    Core_Deafult
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -18,6 +20,10 @@
  *
  * This class is the ultimate resource class. Every resources will extend this class
  * and thus the utilities provided by this abstract class.
+ *
+ * @category Core
+ * @package  Core_Default
+ * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
 Final class Core_Default_Model_Resource_Abstract extends BasicObject
 {

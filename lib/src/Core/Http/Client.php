@@ -1,11 +1,28 @@
 <?php
 /**
- * ...................................................................................
- *                                 Client.php                                         *
- * ...................................................................................*
+ * SimpleMage
+ *...................................................................................
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License that is bundled with this package
+ * in the file LICENSE_SM.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Core
+ * @package    Core_Http
+ * @copyright  Copyright (c) 2015
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+ */
+
+/**
  *
  * This file is a part of the package Core_Http. This package is the part of this
  * framework. This package is used for controlling HTTP Requests in better way.
+ *
+ * @category Core
+ * @package  Core_Db
+ * @author   Rajeev K Tomy <rajeevphpdeveloper@gmail.com>
  */
 
 class Core_Http_Client
@@ -112,7 +129,7 @@ class Core_Http_Client
 	 * Use to check whether a POST exist.
 	 *
 	 * $_POST is an array
-	 * 
+	 *
 	 * @param  string  $reference
 	 * @return boolean
 	 */
@@ -132,7 +149,7 @@ class Core_Http_Client
 	 * Use to check whether a GET exist.
 	 *
 	 * $_GET is an array
-	 * 
+	 *
 	 * @param  string  $reference
 	 * @return boolean
 	 */
